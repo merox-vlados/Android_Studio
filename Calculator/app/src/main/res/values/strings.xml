@@ -5,4 +5,5 @@
     <string name="incorrect_answer">Sorry, the answer is incorrect!</string>
     <string name="correct_answer">You are right!</string>
     <string name="input_answer">Input answer:</string>
+    <string name="newExample">20 + 5 = ?</string>
 </resources>
