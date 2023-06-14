@@ -13,6 +13,11 @@
     <string name="lemon">Лимон</string>
     <string name="choose_drink_type">Выберите тип напитка</string>
     <string name="make_order">Сделать заказ</string>
+    <string name="name">Имя:</string>
+    <string name="drink">Напиток:</string>
+    <string name="drink_type">Тип напитка:</string>
+    <string name="additives_label">Добавки:</string>
+    <string name="error_fields_empty">Пожалуйста, заполните все поля!</string>
 
     <array name="types_of_tea">
         <item>Зеленый</item>

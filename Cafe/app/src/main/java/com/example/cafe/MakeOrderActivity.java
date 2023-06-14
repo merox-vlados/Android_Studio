@@ -1,7 +1,11 @@
 package com.example.cafe;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 public class MakeOrderActivity extends AppCompatActivity {
 
@@ -9,5 +13,11 @@ public class MakeOrderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_order);
+    }
+
+    public static Intent newIntent(Context context, String userName) {
+        Intent intent = new Intent(context, MakeOrderActivity.class);
+        intent.putExtra("userName", userName);
+        return intent;
     }
 }
