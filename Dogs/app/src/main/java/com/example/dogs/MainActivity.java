@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -14,7 +16,7 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String BASE_URL = "https://dog.ceo/api/breeds/image/rando";
+    private static final String BASE_URL = "https://dog.ceo/api/breeds/image/random";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +35,23 @@ public class MainActivity extends AppCompatActivity {
                     InputStream inputStream = urlConnection.getInputStream();
                     InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
                     BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                    String result = bufferedReader.readLine();
-                    Log.d("MainActivity", result);
+
+                    StringBuilder date = new StringBuilder();
+                    String result;
+                    do {
+                        result = bufferedReader.readLine();
+                        if(result != null) {
+                            date.append(result);
+                        }
+                    } while (result != null);
+
+                    JSONObject jsonObject = new JSONObject(date.toString());
+                    String message = jsonObject.getString("message");
+                    String status = jsonObject.getString("status");
+                    DogImage dogImage = new DogImage(message,status);
+
+
+                    Log.d("MainActivity", dogImage.toString());
                 } catch (Exception e) {
                     Log.d("MainActivity", e.toString());
                 }
