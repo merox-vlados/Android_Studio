@@ -27,9 +27,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initView();
-
-
+        recyclerViewMovies = findViewById(R.id.recyclerViewMovies);
+        moviesAdapter = new MoviesAdapter();
+        recyclerViewMovies.setAdapter(moviesAdapter);
+        recyclerViewMovies.setLayoutManager(new GridLayoutManager(this, 2));
 
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         viewModel.getMovies().observe(this, new Observer<List<Movie>>() {
@@ -39,13 +40,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         viewModel.loadMovies();
-    }
-
-    private void initView () {
-        recyclerViewMovies = findViewById(R.id.recyclerViewMovies);
-        moviesAdapter = new MoviesAdapter();
-        recyclerViewMovies.setAdapter(moviesAdapter);
-        recyclerViewMovies.setLayoutManager(new GridLayoutManager(this, 2));
     }
 
 }
