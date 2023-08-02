@@ -6,10 +6,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+
+import com.bumptech.glide.load.engine.Initializable;
 
 import java.util.List;
 
@@ -25,13 +28,14 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBarLoading;
     private MoviesAdapter moviesAdapter;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        progressBarLoading = findViewById(R.id.progressBarLoading);
-        recyclerViewMovies = findViewById(R.id.recyclerViewMovies);
+        initViews();
         moviesAdapter = new MoviesAdapter();
         recyclerViewMovies.setAdapter(moviesAdapter);
         recyclerViewMovies.setLayoutManager(new GridLayoutManager(this, 2));
@@ -59,6 +63,21 @@ public class MainActivity extends AppCompatActivity {
                 viewModel.loadMovies();
             }
         });
+
+        moviesAdapter.setOnMovieClickListener(new MoviesAdapter.OnMovieClickListener() {
+            @Override
+            public void onMovieClick(Movie movie) {
+                Intent intent = MovieDetailActivity.newIntent(MainActivity.this, movie);
+                startActivity(intent);
+
+            }
+        });
+
+    }
+
+    private void initViews() {
+        progressBarLoading = findViewById(R.id.progressBarLoading);
+        recyclerViewMovies = findViewById(R.id.recyclerViewMovies);
     }
 
 }
