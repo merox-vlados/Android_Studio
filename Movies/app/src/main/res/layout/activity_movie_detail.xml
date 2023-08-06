@@ -34,10 +34,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:textSize="16sp"
             android:textColor="@android:color/holo_orange_light"
+            android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@id/textViewTitle"
             tools:text="1998" />
+
         <TextView
 
             android:id="@+id/textViewDescription"
@@ -47,6 +48,14 @@
             android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@id/textViewYear"
             tools:text="Description of movie" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewTrailers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/textViewDescription"
+            tools:listitem="@layout/trailer_item" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
