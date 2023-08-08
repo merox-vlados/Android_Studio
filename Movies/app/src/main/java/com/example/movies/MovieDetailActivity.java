@@ -76,6 +76,8 @@ public class MovieDetailActivity extends AppCompatActivity {
             }
         });
 
+        viewModel.loadReviews(movie.getId());
+
     }
 
     private void initViews() {

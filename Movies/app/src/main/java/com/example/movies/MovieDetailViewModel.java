@@ -73,6 +73,17 @@ public class MovieDetailViewModel extends AndroidViewModel {
                         return reviewResponse.getReviews();
                     }
                 })
+                .subscribe(new Consumer<List<Review>>() {
+                    @Override
+                    public void accept(List<Review> reviews) throws Throwable {
+                        Log.d(TAG, reviews.toString());
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Throwable {
+                        Log.d(TAG, throwable.toString());
+                    }
+                });
     }
 
     @Override
