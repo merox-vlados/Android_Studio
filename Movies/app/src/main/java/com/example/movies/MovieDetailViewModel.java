@@ -35,7 +35,7 @@ public class MovieDetailViewModel extends AndroidViewModel {
         return trailers;
     }
 
-    public MutableLiveData<List<Review>> getReviews() {
+    public LiveData<List<Review>> getReviews() {
         return reviews;
     }
 
@@ -75,8 +75,8 @@ public class MovieDetailViewModel extends AndroidViewModel {
                 })
                 .subscribe(new Consumer<List<Review>>() {
                     @Override
-                    public void accept(List<Review> reviews) throws Throwable {
-                        Log.d(TAG, reviews.toString());
+                    public void accept(List<Review> reviewList) throws Throwable {
+                        reviews.setValue(reviewList);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

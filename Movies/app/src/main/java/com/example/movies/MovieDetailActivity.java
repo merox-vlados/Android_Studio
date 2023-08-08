@@ -38,6 +38,10 @@ public class MovieDetailActivity extends AppCompatActivity {
     private RecyclerView recyclerViewTrailers;
     private TrailersAdapter trailersAdapter;
 
+    private RecyclerView recyclerViewReview;
+
+    private ReviewAdapter reviewAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,9 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         trailersAdapter = new TrailersAdapter();
         recyclerViewTrailers.setAdapter(trailersAdapter);
+
+        reviewAdapter = new ReviewAdapter();
+        recyclerViewReview.setAdapter(reviewAdapter);
 
         Movie movie = (Movie) getIntent().getSerializableExtra(EXTRA_MOVIE);
 
@@ -77,6 +84,12 @@ public class MovieDetailActivity extends AppCompatActivity {
         });
 
         viewModel.loadReviews(movie.getId());
+        viewModel.getReviews().observe(this, new Observer<List<Review>>() {
+            @Override
+            public void onChanged(List<Review> reviews) {
+                reviewAdapter.setReviews(reviews);
+            }
+        });
 
     }
 
@@ -86,6 +99,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         textViewYear = findViewById(R.id.textViewYear);
         textViewDescription = findViewById(R.id.textViewDescription);
         recyclerViewTrailers = findViewById(R.id.recyclerViewTrailers);
+        recyclerViewReview = findViewById(R.id.recyclerViewReview);
     }
 
     public static Intent newIntent(Context context, Movie movie) {

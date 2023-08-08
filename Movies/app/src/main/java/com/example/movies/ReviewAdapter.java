@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -26,8 +28,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         View view = LayoutInflater.from(parent.getContext()).inflate(
                 R.layout.review_item,
                 parent,
-                false;
-        )
+                false
+        );
         return new ReviewViewHolder(view);
     }
 
@@ -35,17 +37,25 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
     public void onBindViewHolder(@NonNull ReviewViewHolder holder, int position) {
         Review review = reviews.get(position);
 
-        int colorId;
-        switch (review.getTypeOfReview()) {
-            case "Позитивный":
-                colorId = android.R.color.holo_green_light;
-            case "Негативный":
-                colorId = android.R.color.holo_red_light;
-            default:
-                colorId = android.R.color.holo_purple;
+        int colorId = android.R.color.holo_orange_light;
+        if(review.getTypeOfReview() != null) {
+            switch (review.getTypeOfReview()) {
+                case "Позитивный":
+                    colorId = android.R.color.holo_green_light;
+                    break;
+                case "Негативный":
+                    colorId = android.R.color.holo_red_light;
+                    break;
+                default:
+                    colorId = android.R.color.holo_orange_light;
+            }
         }
+        int color = ContextCompat.getColor(holder.itemView.getContext(), colorId);
+        holder.linearLayoutReview.setBackgroundColor(color);
 
         holder.textViewAuthor.setText(review.getAuthor());
+
+        holder.textViewReview.setText(review.getReview());
 
     }
 
