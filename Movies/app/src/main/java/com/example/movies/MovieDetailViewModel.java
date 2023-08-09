@@ -27,6 +27,8 @@ public class MovieDetailViewModel extends AndroidViewModel {
 
     private final MutableLiveData<List<Review>> reviews = new MutableLiveData<>();
 
+    private int page = 1;
+
     public MovieDetailViewModel(@NonNull Application application) {
         super(application);
     }
@@ -64,7 +66,7 @@ public class MovieDetailViewModel extends AndroidViewModel {
     }
 
     public void loadReviews(int id) {
-        Disposable disposable = ApiFactory.apiservice.loadReview(id)
+        Disposable disposable = ApiFactory.apiservice.loadReview(id,page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new Function<ReviewResponse, List<Review>>() {
@@ -77,6 +79,7 @@ public class MovieDetailViewModel extends AndroidViewModel {
                     @Override
                     public void accept(List<Review> reviewList) throws Throwable {
                         reviews.setValue(reviewList);
+                        page++;
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -84,6 +87,7 @@ public class MovieDetailViewModel extends AndroidViewModel {
                         Log.d(TAG, throwable.toString());
                     }
                 });
+        compositeDisposable.add(disposable);
     }
 
     @Override

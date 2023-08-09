@@ -37,19 +37,22 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
     public void onBindViewHolder(@NonNull ReviewViewHolder holder, int position) {
         Review review = reviews.get(position);
 
-        int colorId = android.R.color.holo_orange_light;
-        if(review.getTypeOfReview() != null) {
-            switch (review.getTypeOfReview()) {
-                case "Позитивный":
-                    colorId = android.R.color.holo_green_light;
-                    break;
-                case "Негативный":
-                    colorId = android.R.color.holo_red_light;
-                    break;
-                default:
-                    colorId = android.R.color.holo_orange_light;
-            }
+        int colorId;
+
+        switch (review.getTypeOfReview()) {
+            case "Позитивный":
+                colorId = android.R.color.holo_green_light;
+                break;
+            case "Негативный":
+                colorId = android.R.color.holo_red_light;
+                break;
+            default:
+                colorId = android.R.color.holo_orange_light;
         }
+        if(review.getTypeOfReview() == null) {
+            colorId = android.R.color.holo_orange_light;
+        }
+
         int color = ContextCompat.getColor(holder.itemView.getContext(), colorId);
         holder.linearLayoutReview.setBackgroundColor(color);
 
