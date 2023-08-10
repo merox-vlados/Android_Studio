@@ -82,7 +82,6 @@ public class MovieDetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         viewModel.loadReviews(movie.getId());
         viewModel.getReviews().observe(this, new Observer<List<Review>>() {
             @Override
@@ -90,6 +89,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                 reviewAdapter.setReviews(reviews);
             }
         });
+
 
     }
 
