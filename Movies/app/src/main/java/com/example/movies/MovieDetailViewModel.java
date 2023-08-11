@@ -8,13 +8,11 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.functions.Action;
 import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.functions.Function;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -66,7 +64,7 @@ public class MovieDetailViewModel extends AndroidViewModel {
     }
 
     public void loadReviews(int id) {
-        Disposable disposable = ApiFactory.apiservice.loadReview(id)
+        Disposable disposable = ApiFactory.apiservice.loadReviews(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new Function<ReviewResponse, List<Review>>() {

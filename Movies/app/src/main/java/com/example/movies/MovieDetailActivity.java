@@ -9,18 +9,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
 import java.util.List;
-
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.core.Scheduler;
-import io.reactivex.rxjava3.functions.Consumer;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MovieDetailActivity extends AppCompatActivity {
 
@@ -53,9 +47,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         initViews();
 
         trailersAdapter = new TrailersAdapter();
-        recyclerViewTrailers.setAdapter(trailersAdapter);
-
         reviewAdapter = new ReviewAdapter();
+        recyclerViewTrailers.setAdapter(trailersAdapter);
         recyclerViewReview.setAdapter(reviewAdapter);
 
         Movie movie = (Movie) getIntent().getSerializableExtra(EXTRA_MOVIE);
@@ -82,15 +75,14 @@ public class MovieDetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        viewModel.loadReviews(movie.getId());
+
         viewModel.getReviews().observe(this, new Observer<List<Review>>() {
             @Override
             public void onChanged(List<Review> reviews) {
                 reviewAdapter.setReviews(reviews);
             }
         });
-
-
+        viewModel.loadReviews(movie.getId());
     }
 
     private void initViews() {
@@ -99,7 +91,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         textViewYear = findViewById(R.id.textViewYear);
         textViewDescription = findViewById(R.id.textViewDescription);
         recyclerViewTrailers = findViewById(R.id.recyclerViewTrailers);
-        recyclerViewReview = findViewById(R.id.recyclerViewReview);
+        recyclerViewReview = findViewById(R.id.recyclerViewReviews);
     }
 
     public static Intent newIntent(Context context, Movie movie) {

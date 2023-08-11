@@ -9,7 +9,7 @@ public class Review {
     @SerializedName("review")
     private String review;
     @SerializedName("type")
-    private String typeOfReview;
+    private String type;
 
     public String getAuthor() {
         return author;
@@ -19,14 +19,14 @@ public class Review {
         return review;
     }
 
-    public String getTypeOfReview() {
-        return typeOfReview;
+    public String getType() {
+        return type;
     }
 
-    public Review(String author, String review, String typeOfReview) {
+    public Review(String author, String review, String type) {
         this.author = author;
         this.review = review;
-        this.typeOfReview = typeOfReview;
+        this.type = type;
     }
 
     @Override
@@ -34,7 +34,7 @@ public class Review {
         return "Review{" +
                 "author='" + author + '\'' +
                 ", review='" + review + '\'' +
-                ", typeOfReview='" + typeOfReview + '\'' +
+                ", typeOfReview='" + type + '\'' +
                 '}';
     }
 }

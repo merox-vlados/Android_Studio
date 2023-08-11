@@ -59,7 +59,7 @@
             tools:listitem="@layout/trailer_item" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewReview"
+            android:id="@+id/recyclerViewReviews"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:nestedScrollingEnabled="false"

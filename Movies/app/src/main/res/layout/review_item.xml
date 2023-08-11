@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_margin="4dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
     app:cardCornerRadius="4dp"
     app:cardUseCompatPadding="true">
 
     <LinearLayout
-        android:id="@+id/linearLayoutReview"
+        android:id="@+id/linearLayoutContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:alpha="0.8"
         android:orientation="vertical"
-        tools:background="@android:color/holo_green_light"
-        >
+        tools:background="@android:color/holo_green_light">
+
         <TextView
             android:id="@+id/textViewAuthor"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:textColor="@android:color/white"
-            android:padding="8dp"
-            tools:text="Василий"
-            />
+            android:textStyle="bold"
+            tools:text="Василий" />
+
         <TextView
             android:id="@+id/textViewReview"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:textColor="@android:color/white"
-            android:padding="8dp"
-            tools:text="Пересмотрел данную работу спустя 5 лет и совершенно не пожалел об этом. Меня безумно удивило, как изменилось моё восприятие и эмоции при просмотре фильма, посему и вам советую через время просматривать Мировые шедевры кинематографа."
-            />
-
+            tools:text="Пересмотрел данную работу спустя 5 лет и совершенно не пожалел об этом. Меня безумно удивило, как изменилось моё восприятие и эмоции при просмотре фильма, посему и вам советую через время просматривать Мировые шедевры кинематографа." />
 
 
     </LinearLayout>
