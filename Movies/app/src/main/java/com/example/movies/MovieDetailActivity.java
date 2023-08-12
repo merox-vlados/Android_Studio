@@ -16,6 +16,8 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 public class MovieDetailActivity extends AppCompatActivity {
 
     private static final String TAG = "MovieDetailActivity";
@@ -83,6 +85,10 @@ public class MovieDetailActivity extends AppCompatActivity {
             }
         });
         viewModel.loadReviews(movie.getId());
+        MovieDao movieDao = MovieDatabase.getInstance(getApplication()).movieDao();
+        movieDao.insertMovie(movie)
+                .subscribeOn(Schedulers.io())
+                .subscribe();
     }
 
     private void initViews() {
