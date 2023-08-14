@@ -7,11 +7,11 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\merox\.android\avd\Pixel_3a_API_33_x86_64.avd" />
+            <value value="C:\Users\merox.DESKTOP-A2B19IM\.android\avd\Pixel_3a_API_33_x86_64.avd" />
           </Key>
         </deviceKey>
       </Target>
     </targetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2023-08-14T04:11:17.698603Z" />
+    <timeTargetWasSelectedWithDropDown value="2023-08-14T08:31:23.257989500Z" />
   </component>
 </project>
