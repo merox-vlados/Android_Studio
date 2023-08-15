@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Messenger(+Firebase)</string>
+    <string name="menu_logout">Logout</string>
+    <string name="registration_label">Registration</string>
+    <string name="registration_email">Email:</string>
+    <string name="registration_password">Password:</string>
+    <string name="registration_name">Name:</string>
+    <string name="registration_last_name">Last name:</string>
+    <string name="registration_age">How old are you:</string>
+    <string name="registration_sign_up">SIGN UP</string>
 </resources>

@@ -2,7 +2,10 @@ package com.example.messengerfirebase;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -25,20 +28,34 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        String email = editTextTextEmail.getText().toString();
-        String password = editTextTextPassword.getText().toString();
+        initViews();
 
-        if (isValidEmail(email) && isValidPassword(password)) {
-            ///
-        } else {
-            if(!isValidEmail(email)) {
-                Toast.makeText(LoginActivity.this, "The email address is badly formatted", Toast.LENGTH_SHORT);
-            } else if(!isValidPassword(password)) {
-                Toast.makeText(LoginActivity.this, "The password has to be minimum 6 characters long!", Toast.LENGTH_SHORT);
-            } else {
-                Toast.makeText(LoginActivity.this, "The email address and password are badly formatted", Toast.LENGTH_SHORT);
+
+
+        buttonLogIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = editTextTextEmail.getText().toString().trim();
+                String password = editTextTextPassword.getText().toString().trim();
+
+                if (isValidEmail(email) && isValidPassword(password)) {
+                    launchUserScreen();
+                } else {
+                    if(!isValidEmail(email)) {
+                        Toast.makeText(LoginActivity.this, "The email address is badly formatted", Toast.LENGTH_SHORT).show();
+                    } else if(!isValidPassword(password)) {
+                        Toast.makeText(LoginActivity.this, "The password has to be minimum 6 characters long!", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
-        }
+        });
+
+        textViewRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchRegistrationScreen();
+            }
+        });
 
 
     }
@@ -59,4 +76,21 @@ public class LoginActivity extends AppCompatActivity {
     public boolean isValidPassword(String password) {
         return password.length() >= 6;
     }
+
+    public static Intent newIntent(Context context) {
+        Intent intent = new Intent(context, LoginActivity.class);
+        return intent;
+    }
+
+    private void launchUserScreen() {
+        Intent intent = UsersActivity.newIntent(this);
+        startActivity(intent);
+    }
+    private void launchRegistrationScreen() {
+        Intent intent = RegistrationActivity.newIntent(this);
+        startActivity(intent);
+    }
+
+
+
 }
