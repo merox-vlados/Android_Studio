@@ -57,6 +57,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        textViewForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchForgotPasswordScreen();
+            }
+        });
+
 
     }
 
@@ -88,6 +95,11 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void launchRegistrationScreen() {
         Intent intent = RegistrationActivity.newIntent(this);
+        startActivity(intent);
+    }
+
+    private void launchForgotPasswordScreen() {
+        Intent intent = ForgotPasswordActivity.newIntent(this);
         startActivity(intent);
     }
 
