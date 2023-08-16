@@ -11,12 +11,12 @@ import android.widget.EditText;
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    private EditText editTextRegistrationEmail;
-    private EditText editTextRegistrationPassword;
-    private EditText editTextRegistrationName;
-    private EditText editTextRegistrationLastName;
-    private EditText editTextRegistrationAge;
-    private Button buttonRegistration;
+    private EditText editTextEmail;
+    private EditText editTextPassword;
+    private EditText editTextName;
+    private EditText editTextLastName;
+    private EditText editTextAge;
+    private Button buttonSignUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +25,17 @@ public class RegistrationActivity extends AppCompatActivity {
 
         initViews();
 
-        buttonRegistration.setOnClickListener(new View.OnClickListener() {
+        buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String email = getTrimmedValue(editTextEmail);
+                String password = getTrimmedValue(editTextPassword);
+                String name = getTrimmedValue(editTextName);
+                String lastName = getTrimmedValue(editTextLastName);
+                int age = Integer.parseInt(getTrimmedValue(editTextAge));
+
+                // sign up
+
                 Intent intent = UsersActivity.newIntent(RegistrationActivity.this);
                 startActivity(intent);
             }
@@ -35,16 +43,20 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void initViews(){
-        editTextRegistrationEmail = findViewById(R.id.editTextRegistrationEmail);
-        editTextRegistrationPassword = findViewById(R.id.editTextRegistrationPassword);
-        editTextRegistrationName = findViewById(R.id.editTextRegistrationName);
-        editTextRegistrationLastName = findViewById(R.id.editTextRegistrationLastName);
-        editTextRegistrationAge = findViewById(R.id.editTextRegistrationAge);
-        buttonRegistration = findViewById(R.id.buttonRegistration);
+        editTextEmail = findViewById(R.id.editTextEmail);
+        editTextPassword = findViewById(R.id.editTextPassword);
+        editTextName = findViewById(R.id.editTextName);
+        editTextLastName = findViewById(R.id.editTextLastName);
+        editTextAge = findViewById(R.id.editTextAge);
+        buttonSignUp = findViewById(R.id.buttonSignUp);
     }
 
     public static Intent newIntent(Context context) {
         Intent intent = new Intent(context, RegistrationActivity.class);
         return intent;
+    }
+
+    private String getTrimmedValue(EditText editText) {
+        return editText.getText().toString().trim();
     }
 }

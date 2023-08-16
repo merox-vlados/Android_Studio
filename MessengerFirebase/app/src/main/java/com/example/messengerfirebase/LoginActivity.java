@@ -1,6 +1,9 @@
 package com.example.messengerfirebase;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,15 +14,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText editTextTextEmail;
-    private EditText editTextTextPassword;
-    private Button buttonLogIn;
+    private EditText editTextEmail;
+    private EditText editTextPassword;
+    private Button buttonLogin;
     private TextView textViewForgotPassword;
     private TextView textViewRegister;
+
+    private LoginViewModel viewModel;
 
 
 
@@ -27,82 +32,79 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         initViews();
+        viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        observeViewModel();
+        setUpClickListeners();
 
 
+    }
 
-        buttonLogIn.setOnClickListener(new View.OnClickListener() {
+    private void setUpClickListeners() {
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = editTextTextEmail.getText().toString().trim();
-                String password = editTextTextPassword.getText().toString().trim();
-
-                if (isValidEmail(email) && isValidPassword(password)) {
-                    launchUserScreen();
-                } else {
-                    if(!isValidEmail(email)) {
-                        Toast.makeText(LoginActivity.this, "The email address is badly formatted", Toast.LENGTH_SHORT).show();
-                    } else if(!isValidPassword(password)) {
-                        Toast.makeText(LoginActivity.this, "The password has to be minimum 6 characters long!", Toast.LENGTH_SHORT).show();
-                    }
-                }
+                String email = editTextEmail.getText().toString().trim();
+                String password = editTextPassword.getText().toString().trim();
+                viewModel.login(email,password);
             }
         });
-
         textViewRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchRegistrationScreen();
+                Intent intent = RegistrationActivity.newIntent(LoginActivity.this);
+                startActivity(intent);
             }
         });
 
         textViewForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchForgotPasswordScreen();
+                Intent intent = ResetPasswordActivity.newIntent(
+                        LoginActivity.this,
+                        editTextEmail.getText().toString().trim());
+                startActivity(intent);
             }
         });
+    }
 
-
+    private void observeViewModel() {
+        viewModel.getError().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String errorMessage) {
+                if(errorMessage != null) {
+                    Toast.makeText(
+                            LoginActivity.this,
+                            errorMessage,
+                            Toast.LENGTH_SHORT
+                    ).show();
+                }
+            }
+        });
+        viewModel.getUser().observe(this, new Observer<FirebaseUser>() {
+            @Override
+            public void onChanged(FirebaseUser firebaseUser) {
+                if(firebaseUser != null) {
+                    Intent intent = UsersActivity.newIntent(LoginActivity.this);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
     }
 
     private void initViews() {
-        editTextTextEmail = findViewById(R.id.editTextTextEmail);
-        editTextTextPassword = findViewById(R.id.editTextTextPassword);
-        buttonLogIn = findViewById(R.id.buttonLogIn);
+        editTextEmail = findViewById(R.id.editTextEmail);
+        editTextPassword = findViewById(R.id.editTextPassword);
+        buttonLogin = findViewById(R.id.buttonLogin);
         textViewForgotPassword = findViewById(R.id.textViewForgotPassword);
         textViewRegister = findViewById(R.id.textViewRegister);
-    }
-
-    public boolean isValidEmail(String email) {
-        String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
-        return email.matches(regex);
-    }
-
-    public boolean isValidPassword(String password) {
-        return password.length() >= 6;
     }
 
     public static Intent newIntent(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
         return intent;
     }
-
-    private void launchUserScreen() {
-        Intent intent = UsersActivity.newIntent(this);
-        startActivity(intent);
-    }
-    private void launchRegistrationScreen() {
-        Intent intent = RegistrationActivity.newIntent(this);
-        startActivity(intent);
-    }
-
-    private void launchForgotPasswordScreen() {
-        Intent intent = ForgotPasswordActivity.newIntent(this);
-        startActivity(intent);
-    }
-
 
 
 }
