@@ -102,8 +102,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public static Intent newIntent(Context context) {
-        Intent intent = new Intent(context, LoginActivity.class);
-        return intent;
+        return new Intent(context, LoginActivity.class);
     }
 
 
