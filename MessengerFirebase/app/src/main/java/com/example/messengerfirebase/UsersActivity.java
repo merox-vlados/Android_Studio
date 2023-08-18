@@ -28,37 +28,13 @@ public class UsersActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewUsers;
     private UsersAdapter usersAdapter;
-
     private UsersViewModel viewModel;
 
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference databaseReference = firebaseDatabase.getReference("Users");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users);
-//        for(int i = 0; i < 10; i++) {
-//            User user = new User(
-//                    "id" + i, "name" + i, "lastName" + i, i, false
-//            );
-//            databaseReference.push().setValue(user);
-//        }
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    User value = dataSnapshot.getValue(User.class);
-                    Log.d("UsersActivity", value.toString());
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
         initViews();
         viewModel = new ViewModelProvider(this).get(UsersViewModel.class);
         observeViewModel();
@@ -80,6 +56,12 @@ public class UsersActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }
+            }
+        });
+        viewModel.getUsers().observe(this, new Observer<List<User>>() {
+            @Override
+            public void onChanged(List<User> users) {
+                usersAdapter.setUsers(users);
             }
         });
     }

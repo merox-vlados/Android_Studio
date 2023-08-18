@@ -5,7 +5,7 @@ public class User {
     private String name;
     private String lastName;
     private int age;
-    private Boolean isOnline;
+    private boolean isOnline;
 
     public User(String id, String name, String lastName, int age, Boolean isOnline) {
         this.id = id;
