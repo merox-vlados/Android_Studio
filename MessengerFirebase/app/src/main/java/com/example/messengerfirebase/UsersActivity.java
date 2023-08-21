@@ -26,9 +26,12 @@ import java.util.Random;
 
 public class UsersActivity extends AppCompatActivity {
 
+    private static final String EXTRA_CURRENT_USER_ID = "current_id";
     private RecyclerView recyclerViewUsers;
     private UsersAdapter usersAdapter;
     private UsersViewModel viewModel;
+
+    private String currentUserId;
 
 
     @Override
@@ -36,9 +39,19 @@ public class UsersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users);
         initViews();
+        currentUserId = getIntent().getStringExtra(EXTRA_CURRENT_USER_ID);
         viewModel = new ViewModelProvider(this).get(UsersViewModel.class);
         observeViewModel();
-
+        usersAdapter.setOnUserClickListener(new UsersAdapter.OnUserClickListener() {
+            @Override
+            public void onUserClick(User user) {
+                Intent intent = ChatActivity.newIntent(
+                        UsersActivity.this,
+                        currentUserId,
+                        user.getId());
+                startActivity(intent);
+            }
+        });
     }
 
     private void initViews() {
@@ -82,8 +95,9 @@ public class UsersActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public static Intent newIntent(Context context) {
+    public static Intent newIntent(Context context, String currentUserId) {
         Intent intent = new Intent(context, UsersActivity.class);
+        intent.putExtra(EXTRA_CURRENT_USER_ID, currentUserId);
         return intent;
     }
 }
