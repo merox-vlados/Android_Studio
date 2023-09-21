@@ -14,10 +14,23 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var CountDownTimer = object : CountDownTimer(700000, 1000) {
+        var text = ""
+
+        binding.imageButton.setOnClickListener {
+            var text = binding.editTextNumberMinutes.text.toString().trim()
+
+        }
+
+        var minutes = text.toInt()
+
+
+
+        var CountDownTimer = object : CountDownTimer(minutes.toLong() * 60000 , 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 val seconds = millisUntilFinished / 1000
-                binding.timerScreen.text = "Осталось $seconds секунд"
+                val minutes = millisUntilFinished / 60000
+                val remainingSeconds = seconds % 60
+                binding.timerScreen.text = "Осталось $minutes:$remainingSeconds"
             }
 
             override fun onFinish() {
