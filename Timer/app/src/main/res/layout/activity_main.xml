@@ -12,7 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="00:00"
+        android:text="@string/_00_00"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,10 +24,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="Start"
+        android:text="@string/start"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/buttonStop"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timerScreen" />
 
@@ -36,7 +37,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="Stop"
+        android:text="@string/stop"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/buttonReset"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +49,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="Reset"
+        android:text="@string/reset"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,27 +58,30 @@
 
     <ImageButton
         android:id="@+id/imageButton"
-        android:layout_width="43dp"
-        android:layout_height="41dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
         android:background="#FFFFFF"
         android:foreground="@android:drawable/ic_menu_send"
         app:layout_constraintBottom_toBottomOf="@+id/editTextNumberMinutes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/editTextNumberMinutes"
-        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@android:drawable/ic_media_play" />
 
     <EditText
         android:id="@+id/editTextNumberMinutes"
-        android:layout_width="361dp"
-        android:layout_height="41dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
         android:ems="10"
         android:gravity="center"
-        android:hint="Enter the number of minutes"
-        android:inputType="text"
+        android:hint="@string/enter_the_number_of_minutes"
+        android:inputType="number"
         app:layout_constraintBottom_toTopOf="@+id/timerScreen"
         app:layout_constraintEnd_toStartOf="@id/imageButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
